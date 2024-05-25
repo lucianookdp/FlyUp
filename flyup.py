@@ -2,39 +2,21 @@ paris = []
 novayork = []
 londres = []
 passageiros = {}
-passageirosp = {}
-passageirosl = {}
-passageirosny = {}
 pagamentos_abertos = {}
 pagamentos_efetuados = {}
-pacotes_paris_restantes = (10 - sum(paris))
-pacotes_londres_restantes = (10 - sum(londres))
-pacotes_novayork_restantes = (10 - sum(novayork))
-paris_disponivel = sum(paris) < 10
-londres_disponivel = sum(londres) < 10
-novayork_disponivel = sum(novayork) < 10
 contador = 0
-
-print("\n"
-      "------------------------------------------------------\n"
-      "Bem vindo(a) ao FlyUP Pacotes De Viagens! (BETA 3.O)\n"
-      "------------------------------------------------------\n\n"
-      "Alunos:\n"
-      "Henrique Padilha Duda\n"
-      "Luciano Kubiak Dal Pai\n"
-      "Jhonnatan M. Cora Da Luz\n")
 
 def menu():
     while True:
-        print(  '----------------------------\n'
-                'MENU PRINCIPAL:\n'
-                '----------------------------\n'
-                '1- Comprar passagem\n'
-                '2- Ver destinos disponíveis\n'
-                '3- Consultar valores\n'
-                '4- Menu do administrador\n'
-                '0- Sair\n'
-                '----------------------------')
+        print('----------------------------\n'
+              'MENU PRINCIPAL:\n'
+              '----------------------------\n'
+              '1- Comprar passagem\n'
+              '2- Ver destinos disponíveis\n'
+              '3- Consultar valores\n'
+              '4- Menu do administrador\n'
+              '0- Sair\n'
+              '----------------------------')
 
         continuar = int(input())
         if continuar == 1:
@@ -48,9 +30,10 @@ def menu():
         elif continuar == 0:
             break
         else:
-            return menu()
+            print("Opção inválida. Tente novamente.")
+            continue
 
-def compra_paris(paris, item):
+def compra_paris(item):
     paris.append(item)
 
 def passagem_paris():
@@ -58,20 +41,20 @@ def passagem_paris():
     if sum(paris) < 10:
         pacotesparis = int(input('Digite o número de pacotes: '))
         if pacotesparis <= (10 - sum(paris)):
-            compra_paris(paris, pacotesparis)
-            for a in range(0, pacotesparis):
+            compra_paris(pacotesparis)
+            for a in range(pacotesparis):
                 nome_passageiro_paris()
         else:
             novo_paris()
-    elif sum(paris) == 10:
+    else:
         print('Todos os pacotes para essa viagem já foram vendidos!!')
         comprar()
 
 def nome_passageiro_paris():
-    nomepassageiro = input(("Digite seu nome completo: "))
+    nomepassageiro = input("Digite seu nome completo: ")
     nome = nomepassageiro.upper()
-    passageiros.setdefault(nome, "PARIS")
-    pagamentos_abertos.setdefault(nome, "Pagamento em aberto")
+    passageiros[nome] = "PARIS"
+    pagamentos_abertos[nome] = "Pagamento em aberto"
 
 def novo_paris():
     print('Número de pacotes inválido')
@@ -80,84 +63,84 @@ def novo_paris():
                     '1- Novo número de pacotes\n'
                     '2- Menu\n'))
     if num == 1:
-        return passagem_paris()
-    if num == 2:
-        return menu()
+        passagem_paris()
+    elif num == 2:
+        menu()
     else:
-        return novo_paris()
+        novo_paris()
 
 def novo_londres():
     print('Número de pacotes inválido')
-    print("Ainda restam", (10-sum(londres)), "pacote(s) restante(s)")
+    print("Ainda restam", (10 - sum(londres)), "pacote(s) restante(s)")
     num1 = int(input('Digite:\n'
-                    '1- Novo número de pacotes\n'
-                    '2- Menu\n'))
+                     '1- Novo número de pacotes\n'
+                     '2- Menu\n'))
     if num1 == 1:
-        return passagem_londres()
-    if num1 == 2:
-        return menu()
+        passagem_londres()
+    elif num1 == 2:
+        menu()
     else:
-        return novo_londres()
+        novo_londres()
 
-def compra_londres(londres, item):
+def compra_londres(item):
     londres.append(item)
 
 def passagem_londres():
     print('VOCÊ ESCOLHEU LONDRES')
     if sum(londres) < 10:
         pacoteslondres = int(input('Digite o número de pacotes: '))
-        if pacoteslondres <= 10-sum(londres):
-            compra_londres(londres, pacoteslondres)
-            for a in range(0, pacoteslondres):
+        if pacoteslondres <= 10 - sum(londres):
+            compra_londres(pacoteslondres)
+            for a in range(pacoteslondres):
                 nome_passageiro_londres()
         else:
             novo_londres()
-    elif sum(londres) == 10:
+    else:
         print('Todos os pacotes para essa viagem já foram vendidos!!')
-        menu ()
+        menu()
 
 def nome_passageiro_londres():
-    nomepassageiro = input(("Digite seu nome completo: "))
+    nomepassageiro = input("Digite seu nome completo: ")
     nome = nomepassageiro.upper()
-    passageiros.setdefault(nome, "LONDRES")
-    pagamentos_abertos.setdefault(nome, "Pagamento em aberto")
+    passageiros[nome] = "LONDRES"
+    pagamentos_abertos[nome] = "Pagamento em aberto"
 
 def novo_novayork():
     print('Número de pacotes inválido')
-    print("Ainda restam", (10-sum(novayork)), "pacote(s) restante(s)")
+    print("Ainda restam", (10 - sum(novayork)), "pacote(s) restante(s)")
     num2 = int(input('Digite:\n'
-                    '1- Novo número de pacotes\n'
-                    '2- Menu\n'))
+                     '1- Novo número de pacotes\n'
+                     '2- Menu\n'))
     if num2 == 1:
-        return passagem_novayork()
-    if num2 == 2:
-        return menu()
+        passagem_novayork()
+    elif num2 == 2:
+        menu()
     else:
-        return novo_novayork()
+        novo_novayork()
 
-def compra_novayork(novayork, item):
+def compra_novayork(item):
     novayork.append(item)
 
 def passagem_novayork():
     print('VOCÊ ESCOLHEU NOVA YORK')
     if sum(novayork) < 10:
         pacotesnovayork = int(input('Digite o número de pacotes: '))
-        if pacotesnovayork <= 10-(sum(novayork)):
-            compra_novayork(novayork, pacotesnovayork)
-            for a in range(0, pacotesnovayork):
+        if pacotesnovayork <= 10 - sum(novayork):
+            compra_novayork(pacotesnovayork)
+            for a in range(pacotesnovayork):
                 nome_passageiro_novayork()
             print("Parabéns, você já reservou sua viagem!!")
         else:
             novo_novayork()
-    elif sum(novayork) == 10:
+    else:
         print('Todos os pacotes para essa viagem já foram vendidos!!')
         menu()
 
 def nome_passageiro_novayork():
-    nomepassageiro = input(("Digite seu nome completo: "))
+    nomepassageiro = input("Digite seu nome completo: ")
     nome = nomepassageiro.upper()
-    passageiros.setdefault(nome, "NOVA YORK")
-    pagamentos_abertos.setdefault(nome, "Pagamento em aberto")
+    passageiros[nome] = "NOVA YORK"
+    pagamentos_abertos[nome] = "Pagamento em aberto"
 
 def admin():
     print("-----------------------------\n"
@@ -168,67 +151,70 @@ def admin():
     if senha == senha2:
         pagamentos()
     else:
-        return admin()
+        print("Senha incorreta.")
+        admin()
 
 def comprar():
-    dest = int(input( "-----------------------------------\n"
-                      "Selecione o seu destino dos sonhos!!\n"
-                      "São os destinos disponíveis:\n"
-                      '1- PARIS\n'
-                      '2- LONDRES\n'
-                      '3- NOVA YORQUE\n'
-                      '-----------------------------------\n' ))
+    dest = int(input("Selecione o seu destino dos sonhos!!\n"
+                     "São os destinos disponíveis:\n"
+                     '1- PARIS\n'
+                     '2- LONDRES\n'
+                     '3- NOVA YORK\n'))
 
     if dest == 1:
         passagem_paris()
-    if dest == 2:
+    elif dest == 2:
         passagem_londres()
-    if dest == 3:
+    elif dest == 3:
         passagem_novayork()
+    else:
+        print("Opção inválida. Tente novamente.")
+        comprar()
 
 def mostrar():
     print('-----------------------------------------------------')
-    print('Paris ainda tem', (10 - sum(paris)),'lugares disponíveis')
+    print('Paris ainda tem', (10 - sum(paris)), 'lugares disponíveis')
     print('Londres ainda tem', (10 - sum(londres)), 'lugares disponíveis')
-    print('Nova Yorque ainda tem', (10 - sum(novayork)), 'lugares disponíveis')
-    print('------------------------------------------------------------------')
+    print('Nova York ainda tem', (10 - sum(novayork)), 'lugares disponíveis')
+    print('-----------------------------------------------------')
 
 def valores():
     print('Pacote para Paris = R$ 3.499,90')
     print('Pacote para Londres = R$ 3.699,90')
-    print('Pacote para Nova Iork = R$ 3.299,90')
+    print('Pacote para Nova York = R$ 3.299,90')
 
 def lista_passageiros():
-    busca = int(input(  'Digite:\n'
-                        '1- Exibir lista de passageiros\n'
-                        '2- Buscar passageiro\n'
-                        '3- Pagamentos\n'
-                        '4- menu\n'))
+    busca = int(input('Digite:\n'
+                      '1- Exibir lista de passageiros\n'
+                      '2- Buscar passageiro\n'
+                      '3- Pagamentos\n'
+                      '4- Menu\n'))
     if busca == 1:
-        if len(passageiros) != 0:
+        if passageiros:
             for a in passageiros:
-                print('Nome: ', a, ",destino: ", passageiros[a])
-            return pagamentos()
+                print('Nome: ', a, ", destino: ", passageiros[a])
         else:
             print("Ainda não há nenhum passageiro")
-            return pagamentos()
+        pagamentos()
 
     elif busca == 2:
         busca_passageiro = input("Digite o nome do passageiro: ")
         nome = busca_passageiro.upper()
-        if passageiros.get(nome):
-            print("Nome: ",nome,",Destino: ",passageiros[nome])
-            return pagamentos()
+        if nome in passageiros:
+            print("Nome: ", nome, ", Destino: ", passageiros[nome])
         else:
             print("Passageiro não encontrado")
-            return pagamentos()
+        pagamentos()
+
     elif busca == 3:
-        return pagamentos()
+        pagamentos()
+
     elif busca == 4:
         menu()
+
     else:
-        print("Digito inválido")
-        return lista_passageiros()
+        print("Dígito inválido")
+        lista_passageiros()
 
 def pagamentos():
     pag = int(input('1- Ver pagamentos em aberto \n'
@@ -237,10 +223,8 @@ def pagamentos():
                     '4- Retornar ao menu\n'
                     '----------------------------\n'))
     if pag == 1:
-        if len(pagamentos_abertos) == 0:
+        if not pagamentos_abertos:
             print("Não há pagamentos em aberto!!")
-            return pagamentos()
-
         else:
             for a in pagamentos_abertos:
                 print('Nome:', a, '=', pagamentos_abertos[a])
@@ -250,27 +234,27 @@ def pagamentos():
     elif pag == 3:
         valorestotais()
     elif pag == 4:
-        return menu()
+        menu()
     else:
         print("Dígito inválido!!")
-        return pagamentos()
+        pagamentos()
 
 def confirmar_pagamento():
     baixa = input("Digite o nome do passageiro à confirmar o pagamento: ")
     nome = baixa.upper()
-    if pagamentos_abertos.get(nome):
+    if nome in pagamentos_abertos:
         del pagamentos_abertos[nome]
-        pagamentos_efetuados.setdefault(nome, "Pagamento efetuado")
+        pagamentos_efetuados[nome] = "Pagamento efetuado"
         print("O pagamento de", nome, 'foi confirmado!')
         for i in pagamentos_efetuados:
             print(i, '=', pagamentos_efetuados[i])
-            return pagamentos()
+        pagamentos()
     else:
         print("Passageiro não encontrado")
         a = int(input("1- Pesquisar novamente\n"
-                        "2- Ver pacotes em aberto\n"
-                        "3- Admin\n"
-                        "4- Menu\n"))
+                      "2- Ver pacotes em aberto\n"
+                      "3- Admin\n"
+                      "4- Menu\n"))
         if a == 1:
             confirmar_pagamento()
         elif a == 2:
@@ -280,8 +264,8 @@ def confirmar_pagamento():
         elif a == 4:
             menu()
         else:
-            print("Digito inválido!!")
-            return confirmar_pagamento()
+            print("Dígito inválido!!")
+            confirmar_pagamento()
 
 def valorestotais():
     valort = int(input('1- Valores totais de Paris\n'
@@ -292,54 +276,45 @@ def valorestotais():
         print(sum(paris), "passagens para Paris vendidas")
         x = int(input("Digite a quantidade de pacotes vendidos: "))
         if sum(paris) == x:
-            somaparis(x)
             print(somaparis(x), "R$")
         else:
             print("Números divergem")
-            return somaparis()
     elif valort == 2:
         print(sum(londres), "passagens para Londres vendidas")
         x = int(input("Digite a quantidade de pacotes vendidos: "))
         if sum(londres) == x:
-            somalondres(x)
             print(somalondres(x), "R$")
         else:
             print("Números divergem")
-            return somalondres()
     elif valort == 3:
         print(sum(novayork), "passagens para Nova York vendidas")
         x = int(input("Digite a quantidade de pacotes vendidos: "))
         if sum(novayork) == x:
-            somany(x)
             print(somany(x), "R$")
         else:
             print("Números divergem")
-            return somany()
     elif valort == 4:
         pagamentos()
     else:
-        print("Digito inválido!!")
-        return valorestotais()
+        print("Dígito inválido!!")
+        valorestotais()
 
 def somalondres(n):
-    if n == 0:
-        return 0
-    elif n == 1:
-        return 3.699,90
-    return n*3.699,90 + somalondres(n-1) - 3.699,90*(n-1)
+    return n * 3699.90
 
 def somany(n):
-    if n == 0:
-        return 0
-    elif n == 1:
-        return 3.299,90
-    return n*3.299,90 + somany(n-1) - 3.299,90*(n-1)
+    return n * 3299.90
 
 def somaparis(n):
-    if n == 0:
-        return 0
-    elif n == 1:
-        return 3.499,90
-    return n*3.499,90 + somaparis(n-1) - 3.499,90*(n-1)
+    return n * 3499.90
+
+print("\n"
+      "------------------------------------------------------\n"
+      "Bem vindo(a) ao FlyUP Pacotes De Viagens! (BETA 3.O)\n"
+      "------------------------------------------------------\n\n"
+      "Alunos:\n"
+      "Henrique Padilha Duda\n"
+      "Luciano Kubiak Dal Pai\n"
+      "Jhonnatan M. Cora Da Luz\n")
 
 menu()
